@@ -1,0 +1,43 @@
+#include<iostream>
+#include<set>
+#include<cstdio>
+using namespace std;
+bool check(int arr[], int l, int r, int search) {
+    int mid = (l + r) / 2;
+    if(arr[mid] == search)
+	return true;
+    if(l < r) {
+        if(search > arr[mid])
+	    check(arr, mid + 1, r, search);
+        else
+	    check(arr, l, mid - 1, search);
+    }
+    else
+	return false;
+}
+int main() {
+    int SIZE;
+    cin >> SIZE;
+    set<int> s;
+    int arr[SIZE];
+    for(int i; i < SIZE ; i++) {
+	int num;
+	cin >> num;
+	s.insert(num);
+    }
+    int j = 0;
+    for(set<int>:: iterator i = s.begin(); i != s.end(); i++, j++) {
+	arr[j] = *i;
+    }
+    
+    int search;
+    cin >> search;
+    int forw = 0; 
+    int back = SIZE - 1;
+    
+    if(check(arr, 0, back, search))
+	cout<< "FOUND"<< endl;
+    else
+	cout<< "NOT FOUND"<< endl;
+    return 0;
+}

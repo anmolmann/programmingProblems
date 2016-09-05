@@ -1,0 +1,69 @@
+// binary search with some elements right shifted
+
+#include<iostream>
+
+bool check(int arr[], int forw, int back, int search) {
+
+    int mid = (forw + back) / 2;
+    while((forw < back) and (arr[mid] != search)) {
+	if(search > arr[mid] )
+	    forw = mid + 1;
+        if(search < arr[mid])
+	    back = mid - 1;
+	mid = (forw + back) / 2;
+    }
+    if(arr[mid] == search)
+	return true;
+    return false;
+}
+
+using namespace std;
+int main() {
+
+    int SIZE;
+    cin >> SIZE;
+    int arr[SIZE];
+    for(int i = 0; i < SIZE; i++)
+	cin >> arr[i];
+    int forw = 0;
+    int back = SIZE - 1;
+    int mid;
+    // search index
+    mid = SIZE / 2;
+    while((forw < back) and (arr[mid] < arr[mid + 1]) and (arr[mid] > arr[mid - 1])) {
+	if(arr[forw] < arr[mid]) {
+	    forw = mid + 1;
+	    goto label1;
+	}
+               if(arr[forw] > arr[mid])
+	    back = mid - 1;
+               label1: if(forw < back)
+	    mid = (forw + back) / 2;
+    }
+    int index;
+    if(arr[mid] < arr[mid - 1])
+    	index = mid - 1;
+    else
+	index = mid;
+    cout<< index << endl;
+    // binary search
+    int search;
+    cin >> search;
+    if(search < arr[0]) {
+        int forw = index + 1;
+        int back = SIZE - 1;
+        if(check(arr, forw, back, search))
+	    cout<< "FOUND"<< endl;
+        else 
+	    cout<< "NOT FOUND"<< endl;
+    }
+    else {
+ 	int forw = 0;
+	int back = index;
+	if(check(arr, forw, back, search))
+	    cout<< "FOUND"<< endl;
+	else
+	    cout<< "NOT FOUND"<< endl;
+    }
+    return 0;
+}
