@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+int sqrt(int num) {
+    int head = 1;
+    int tail = num / 2;
+    int mid = (head + tail) / 2;
+    if(num == 1)
+        return 1;
+    while((head <= tail) && (num != (mid * mid))) {
+        if(num > (mid * mid)) {
+            head = mid + 1;
+        }
+        if(num < (mid * mid))
+            tail = mid - 1;
+        if(head <= tail)
+            mid = (head + tail) / 2;
+    }
+    if((num == mid * mid) || (num > (mid * mid)))
+        return mid;
+    return --mid;
+}
+int main() {
+    int num;
+    cin >> num;
+    cout << sqrt(num);
+    return 0;
+}
