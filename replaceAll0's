@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int nColumns, nRows;
+    cin>> nRows;
+    cin>> nColumns;
+    int zRow = 0;
+    int zColumn = 0;
+    int matrix[nRows][nColumns];
+    for(int i = 0; i < nRows; i++) {
+	    for(int j = 0; j < nColumns; j++)
+	      cin>> matrix[i][j];
+    }
+    for(int i = 0;i < nRows; i++) {
+      for(int j = 0; j < nColumns; j++) {
+	      if(matrix[i][j] == 0) {
+		      zRow = zRow | (1 << i);
+	 	      zColumn = zColumn | (1 << j); 
+	      }
+	    }
+    }
+    cout<< zColumn<< endl;
+    for(int i = 0; i < nRows; i++) {
+	    if((zRow & (1 << i)) != 0) {
+	      for(int j = 0; j < nColumns; j++)	
+      		matrix[i][j] = 0;
+	    }
+    }
+    for(int i = 0; i < nColumns; i++) {
+	    if((zColumn & (1 << i)) != 0) {
+	      for(int j = 0; j < nRows; j++)
+		      matrix[j][i] = 0;
+	    }
+    }
+    for(int i =0; i < nRows; i++) {
+    	for(int j =0; j < nColumns; j++)
+	      cout<< matrix[i][j];
+	    cout<<endl;
+    }
+    return 0;
+}
