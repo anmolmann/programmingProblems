@@ -1,0 +1,39 @@
+#include<iostream>
+#include<set>
+#include<cstdio>
+using namespace std;
+
+int main() {
+    int SIZE;
+    cin >> SIZE;
+    set<int> s;
+    int arr[SIZE];
+    for(int i; i < SIZE ; i++) {
+	int num;
+	cin >> num;
+	s.insert(num);
+    }
+    int j = 0;
+    for(set<int>:: iterator i = s.begin(); i != s.end(); i++, j++) {
+	arr[j] = *i;
+    }
+    
+    int search;
+    cin >> search;
+    int forw = 0, back = SIZE - 1;
+    int mid = (forw + back) / 2;
+    while((search != arr[mid]) && (forw < back)) {
+	if(search < arr[mid]) {
+	    back = mid - 1;
+	}
+	if(search > arr[mid]) {
+	    forw = mid + 1;
+	}
+	mid = (forw + back) / 2;
+    }
+    if(search == arr[mid])
+        cout<< "FOUND";
+    else
+	cout<< "Not found";
+    return 0;
+}
